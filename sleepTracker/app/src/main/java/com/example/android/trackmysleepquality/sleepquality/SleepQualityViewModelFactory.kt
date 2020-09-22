@@ -15,3 +15,20 @@
  */
 
 package com.example.android.trackmysleepquality.sleepquality
+
+import java.lang.IllegalArgumentException
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.trackmysleepquality.database.SleepDatabaseDao
+
+class SleepQualityViewModelFactory(private val sleepKey: Long,
+                                   private val dataSource: SleepDatabaseDao): ViewModelProvider.Factory{
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SleepQualityViewModel::class.java)){
+            return SleepQualityViewModel(sleepKey, dataSource) as T
+        }
+        throw IllegalArgumentException("ViewModel not found!")
+    }
+
+}
